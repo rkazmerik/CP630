@@ -39,23 +39,16 @@ df2 = sexToBin(df2)
 
 # Format train for Logistic Regression as (label, features)
 dfTrain = df.rdd.map(lambda x: Row(label=float(x[0]), features=Vectors.dense(x[1:]))).toDF().cache()
-dfTest = df2.rdd.map(lambda x: Row(label=float(x[0]), features=Vectors.dense(x[1:]))).toDF().cache()
-
-dfTest.show()
+dfTest = df2.rdd.map(lambda x: Row(features=Vectors.dense(x[1:]))).toDF().cache()
 
 # Create the LR model
 lr = LogisticRegression(maxIter=100, regParam=0.1)
 model = lr.fit(dfTrain)
-pred = model.transform(dfTest).select('label', 'prediction', 'rawPrediction')
-pred.show()
+pred = model.transform(dfTest).select('prediction')
 
-# Evaluate the model
-evaluator = BinaryClassificationEvaluator(labelCol="label", rawPredictionCol="rawPrediction")
-perfVal = evaluator.evaluate(pred)
-perfName = evaluator.getMetricName()
-print(perfName + " : " + str(perfVal))
-print("Coefficients: " + str(model.coefficients))
-print("Intercepts: " + str(model.intercept))
+print(" ")
+result = pred.first()
+print(result)
 
 #Stop the Spark session
 sc.stop()
