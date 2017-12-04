@@ -1,10 +1,11 @@
 # Copyright (C) 2015 Ehsan Mohyedin Kermani
 # Contact: ehsanmo1367@gmail.com, ehsanmok@cs.ubc.ca
+import sys
 from pyspark.sql import SparkSession
 from pyspark.ml.evaluation import BinaryClassificationEvaluator
 from pyspark.ml.classification import LogisticRegression
 from pyspark.sql import Row
-from pyspark.sql.types import IntegerType
+from pyspark.sql.types import *
 from pyspark.sql.functions import UserDefinedFunction
 from pyspark.ml.linalg import Vectors
 
@@ -20,13 +21,12 @@ spark = SparkSession.builder.master("local") \
 sc = spark.sparkContext
 
 # Create data frames for the train / test data
-df = spark.read.format("csv").option("header", "true").load("./data/titanic.csv")
+df = spark.read.format("csv").option("header", "true").load("/Users/ryankazmerik/cp630/final/CP630/data/titanic.csv")
+df2 = spark.read.format("csv").option("header", "true").load("/Users/ryankazmerik/cp630/final/CP630/data/userInput.csv")
 
-# Extract the test passenger ID
-testPassengerId = df.select('PassengerId').rdd.map(lambda x: x.PassengerId)
-
-# Select your features, leaving out target from test (Survived)
+# Select your features, with the target first
 df = df.select('Survived', 'Pclass', 'Sex', 'SibSp', 'Parch')
+df2 = df2.select('Survived', 'Pclass', 'Sex', 'SibSp', 'Parch')
 
 # Convert male/female to binary
 udf = UserDefinedFunction(lambda x: 1 if x == "male" else 0, IntegerType())
@@ -35,12 +35,13 @@ def sexToBin(df):
     if column == 'Sex' else column for column in df.columns])
     return df
 df = sexToBin(df)
+df2 = sexToBin(df2)
 
 # Format train for Logistic Regression as (label, features)
-df = df.rdd.map(lambda x: Row(label=float(x[0]), features=Vectors.dense(x[1:]))).toDF().cache()
+dfTrain = df.rdd.map(lambda x: Row(label=float(x[0]), features=Vectors.dense(x[1:]))).toDF().cache()
+dfTest = df2.rdd.map(lambda x: Row(label=float(x[0]), features=Vectors.dense(x[1:]))).toDF().cache()
 
-# Split the data into train and test sets
-dfTrain, dfTest = df.randomSplit([.8,.2],seed=1234)
+dfTest.show()
 
 # Create the LR model
 lr = LogisticRegression(maxIter=100, regParam=0.1)
