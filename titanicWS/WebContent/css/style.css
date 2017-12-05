@@ -1,0 +1,30 @@
+#RWKLogo{
+	width:96px;
+	float:right;
+	margin:20px;
+}
+.rwk-clean{
+	background:none;
+	border:0;
+}
+#RWKVideo{
+	float:left;
+	margin:20px;
+}
+#RWKInputs{
+	float:right;
+	width:200px;
+}
+
+#RWKInputs label{
+	margin-bottom:0px;
+	margin-top:10px;
+}
+#RWKLoader{
+	display:none;
+	width:25px;
+	margin-left:10px;
+}
+#RWKAlert{
+	display:none;
+}

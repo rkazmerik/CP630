@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type='text/javascript' src='./js/rwkscripts.js' /></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+	integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="./css/style.css" type="text/css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>EC RS</title>
+</head>
+<body>
+	<div class="container">
+
+		<img id="RWKLogo" src='./img/ship.png' />
+
+		<div class="jumbotron">
+			<h1 class="display-3">Titanic Simulator</h1>
+			<p class="lead">This is the term project by Ryan Kazmerik for
+				course CP630 : Enterprise Computing offered in the fall semester of
+				2017 at Wilfrid Laurier University, as part of the Masters of
+				Applied Computing.</p>
+			<hr class="my-4">
+
+			<div class="card">
+				<div class="card-body">
+					<span>
+						On April 15, 1912, during her maiden voyage, the Titanic sank
+						after colliding with an iceberg, killing <b>1502</b> out of <b>2224</b>
+						passengers and crew. One reason why the shipwreck led to such loss
+						of life was that there were not enough lifeboats for the
+						passengers and crew. Although there was some element of luck
+						involved in surviving the sinking, some groups of people were more
+						likely to survive than others, such as <b>women</b>, <b>children</b>,
+						and the <b>upper-class.</b>
+					</span>
+				</div>
+			</div>
+
+
+			<div class="card rwk-clean">
+				<div class="card-body">
+					<div id="RWKVideo">
+						<iframe width="560" height="315"
+							src="https://www.youtube.com/embed/FSGeskFzE0s?rel=0&amp;showinfo=0&amp;start=12&end=80"
+							frameborder="0" allowfullscreen></iframe>
+					</div>
+
+					<div id="RWKInputs">
+						<form id="RWKForm">
+							<div class="form-group">
+								<label for="exampleInputClass">Ticket class:</label> <input
+									class="form-control" id="RWKInputClass" 
+									placeholder="Ex. 1, 2 or 3" required="true"> <label
+									for="exampleInputSex">Sex:</label> <input class="form-control"
+									id="RWKInputSex" placeholder="Ex. male or female"
+									required="true"> <label for="exampleInputSibSp">Spouse
+									aboard:</label> <input class="form-control" id="RWKInputSibSp"
+									placeholder="Ex. 0 or 1" required="true"> <label
+									for="exampleInputParch">Children aboard:</label> <input
+									class="form-control" id="RWKInputParch"
+									placeholder="No. children" required="true">
+							</div>
+							<button id="RWKSubmit" type="submit" class="btn btn-primary">
+								Run Simulation <img id='RWKLoader' src="./img/loader.gif" />
+							</button>
+							<div id="RWKAlert" class="alert alert-success" role="alert" />
+								
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="card-body">
+					<span>
+						This project uses a logistic regression machine learning algorithm
+						to predict if the user would have survived on the Titanic. Written in 
+						Python and processed using Apache Spark + Spark ML libraries. 
+						<a href="https://www.kaggle.com/c/titanic">Click here
+							to learn more.</a>
+					</span>
+				</div>
+			</div>
+			<div></div>
+
+		</div>
+
+</body>
+</html>
